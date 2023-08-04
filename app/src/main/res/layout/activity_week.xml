@@ -22,7 +22,8 @@
     <com.necer.calendar.WeekCalendar
         android:id="@+id/weekCalendar"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        app:firstDayOfWeek="sunday" />
 
 
     <LinearLayout

@@ -37,6 +37,7 @@
         <attr name="defaultUnCheckedWorkday" format="reference" />
 
         <attr name="calendarBackground" format="reference" />
+        <attr name="calendarBackgroundColor" format="color|reference" />
 
 
         <attr name="holidayText" format="string" />
@@ -57,9 +58,18 @@
         <attr name="disabledString" format="string" />
 
         <attr name="calendarHeight" format="dimension" />
+        <attr name="calendarPaddingLeft" format="dimension" />
+        <attr name="calendarPaddingTop" format="dimension" />
+        <attr name="calendarPaddingRight" format="dimension" />
+        <attr name="calendarPaddingBottom" format="dimension" />
+        <attr name="calendarPaddingStart" format="dimension" />
+        <attr name="calendarPaddingEnd" format="dimension" />
         <attr name="stretchCalendarHeight" format="dimension" />
         <attr name="stretchCalendarEnable" format="boolean" />
         <attr name="animationDuration" format="integer" />
+        <attr name="scrollViewToMonth" format="boolean" />
+        <attr name="scrollViewToWeek" format="boolean" />
+        <attr name="scrollViewToWeekWithTop" format="boolean" />
 
         <attr name="lastNextMothAlphaColor" format="integer" />
         <attr name="disabledAlphaColor" format="integer" />
@@ -81,8 +91,13 @@
         </attr>
 
         <attr name="firstDayOfWeek" format="enum">
-            <enum name="sunday" value="300" />
-            <enum name="monday" value="301" />
+            <enum name="monday" value="1" />
+            <enum name="tuesday" value="2" />
+            <enum name="wednesday" value="3" />
+            <enum name="thursday" value="4" />
+            <enum name="friday" value="5" />
+            <enum name="saturday" value="6" />
+            <enum name="sunday" value="7" />
         </attr>
 
         <attr name="holidayWorkdayLocation" format="enum">

@@ -9,20 +9,14 @@ import android.widget.Toast;
 
 import com.necer.R;
 import com.necer.adapter.BasePagerAdapter;
-import com.necer.enumeration.CalendarBuild;
-import com.necer.enumeration.DateChangeBehavior;
-import com.necer.enumeration.MultipleCountModel;
-import com.necer.enumeration.CheckModel;
-import com.necer.listener.OnCalendarChangedListener;
-import com.necer.listener.OnCalendarMultipleChangedListener;
-import com.necer.listener.OnClickDisableDateListener;
-import com.necer.listener.OnMWDateChangeListener;
+import com.necer.enumeration.*;
+import com.necer.listener.*;
 import com.necer.painter.CalendarAdapter;
 import com.necer.painter.CalendarBackground;
 import com.necer.painter.CalendarPainter;
 import com.necer.painter.InnerPainter;
 import com.necer.painter.NumBackground;
-import com.necer.painter.WhiteBackground;
+import com.necer.painter.DrawableBackground;
 import com.necer.utils.Attrs;
 import com.necer.utils.AttrsUtil;
 import com.necer.view.ICalendarView;
@@ -48,7 +42,7 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
     private Attrs mAttrs;
     private boolean mScrollEnable = true;
     private CheckModel mCheckModel;//选中模式
-    private final static String mDefaultStartDate = "1901-02-01";
+    private final static String mDefaultStartDate = "1901-01-01";
     private final static String mDefaultEndDateDate = "2099-12-31";
 
     private boolean mDefaultCheckedFirstDate;//默认选择时，翻页选中第一个日期
@@ -57,6 +51,7 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
     private OnMWDateChangeListener mOnMWDateChangeListener;//月周切换是折叠中心的回调
     private OnCalendarChangedListener mOnCalendarChangedListener;//单选时回调，当前页面无选中返回null
     private OnCalendarMultipleChangedListener mOnCalendarMultipleChangedListener;//多选时回调
+    private OnCalendarPageListener mOnCalendarPageListener;//分页加载回调
 
     protected LocalDate mStartDate, mEndDate, mInitializeDate;
     protected CalendarPainter mCalendarPainter;
@@ -79,6 +74,9 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
 
     private DateChangeBehavior mDateChangeBehavior;
 
+    // 服务器时间和本地时间偏移量
+    private long timeOffset;
+
     public BaseCalendar(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         super(context, attributeSet);
         this.mAttrs = AttrsUtil.getAttrs(context, attributeSet);
@@ -97,7 +95,7 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
         } else if (mAttrs.calendarBackground != null) {
             mCalendarBackground = (localDate, currentDistance, totalDistance) -> mAttrs.calendarBackground;
         } else {
-            mCalendarBackground = new WhiteBackground();
+            mCalendarBackground = new DrawableBackground(mAttrs.calendarBackgroundColor);
         }
 
         mFirstDayOfWeek = mAttrs.firstDayOfWeek;
@@ -162,6 +160,14 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
         } catch (Exception e) {
             throw new IllegalArgumentException(getContext().getString(R.string.N_date_format_illegal));
         }
+        initAdapter();
+    }
+
+    @Override
+    public void setFirstDayOfWeek(int dayOfWeek) {
+        if (dayOfWeek > 7 || dayOfWeek < 0) throw new IllegalArgumentException("周开始日必须为1-7");
+        if (mFirstDayOfWeek == dayOfWeek) return;
+        mFirstDayOfWeek = dayOfWeek;
         initAdapter();
     }
 
@@ -243,6 +249,22 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
         }
     }
 
+    public void onPageInit(CalendarType type) {
+        if (mOnCalendarPageListener == null) return;
+        mOnCalendarPageListener.onPageInit(this, type);
+    }
+
+    public void onPageInstantiateItem(CalendarType type, LocalDate localDate) {
+        if (mOnCalendarPageListener == null) return;
+        mOnCalendarPageListener.onInstantiateItem(this, type,  localDate);
+    }
+
+    public void onPageDestroyItem(CalendarType type, LocalDate localDate) {
+        if (mOnCalendarPageListener == null) return;
+        mOnCalendarPageListener.onDestroyItem(this, type,  localDate);
+    }
+
+
     protected void jump(LocalDate localDate, boolean isCheck, DateChangeBehavior dateChangeBehavior) {
         this.mDateChangeBehavior = dateChangeBehavior;
         //判断日期是否合法
@@ -256,6 +278,9 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
             }
         } else {
             ICalendarView iCalendarView = findViewWithTag(getCurrentItem());
+            if (iCalendarView == null) {
+                return;
+            }
             //得出两个页面相差几个
             int indexOffset = getTwoDateCount(localDate, iCalendarView.getPagerInitialDate(), mFirstDayOfWeek);
             if (isCheck) {
@@ -516,6 +541,10 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
         this.mOnCalendarMultipleChangedListener = onCalendarMultipleChangedListener;
     }
 
+    public void setOnCalendarPageListener(OnCalendarPageListener onCalendarPageListener) {
+        this.mOnCalendarPageListener = onCalendarPageListener;
+    }
+
     //获取当前月，当前周的第一个日期
     public LocalDate getFirstDate() {
         ICalendarView iCalendarView = findViewWithTag(getCurrentItem());
@@ -642,5 +671,13 @@ public abstract class BaseCalendar extends ViewPager implements ICalendar {
     @Override
     public CalendarBackground getCalendarBackground() {
         return mCalendarBackground;
+    }
+
+    public long getTimeOffset() {
+        return timeOffset;
+    }
+
+    public void setTimeOffset(long timeOffset) {
+        this.timeOffset = timeOffset;
     }
 }

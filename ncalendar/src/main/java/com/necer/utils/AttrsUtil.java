@@ -2,6 +2,7 @@ package com.necer.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 
 import androidx.core.content.ContextCompat;
@@ -81,13 +82,23 @@ public class AttrsUtil {
         attrs.allMonthSixLine = ta.getBoolean(R.styleable.NCalendar_allMonthSixLine, context.getResources().getBoolean(R.bool.N_allMonthSixLine));
         attrs.lastNextMonthClickEnable = ta.getBoolean(R.styleable.NCalendar_lastNextMonthClickEnable, context.getResources().getBoolean(R.bool.N_lastNextMonthClickEnable));
         attrs.calendarBackground = ta.getDrawable(R.styleable.NCalendar_calendarBackground);
+        attrs.calendarBackgroundColor = ta.getColor(R.styleable.NCalendar_calendarBackgroundColor, Color.WHITE);
         attrs.lastNextMothAlphaColor = ta.getInt(R.styleable.NCalendar_lastNextMothAlphaColor, context.getResources().getInteger(R.integer.N_lastNextMothAlphaColor));
         attrs.disabledAlphaColor = ta.getInt(R.styleable.NCalendar_disabledAlphaColor, context.getResources().getInteger(R.integer.N_disabledAlphaColor));
         attrs.disabledString = ta.getString(R.styleable.NCalendar_disabledString);
 
         attrs.defaultCalendar = ta.getInt(R.styleable.NCalendar_defaultCalendar, CalendarState.MONTH.getValue());
         attrs.calendarHeight = (int) ta.getDimension(R.styleable.NCalendar_calendarHeight, context.getResources().getDimension(R.dimen.N_calendarHeight));
+        attrs.calendarPaddingLeft = (int) ta.getDimension(R.styleable.NCalendar_calendarPaddingLeft, 0);
+        attrs.calendarPaddingTop = (int) ta.getDimension(R.styleable.NCalendar_calendarPaddingTop, 0);
+        attrs.calendarPaddingRight = (int) ta.getDimension(R.styleable.NCalendar_calendarPaddingRight, 0);
+        attrs.calendarPaddingBottom = (int) ta.getDimension(R.styleable.NCalendar_calendarPaddingBottom, 0);
+        attrs.calendarPaddingStart = (int) ta.getDimension(R.styleable.NCalendar_calendarPaddingStart, Integer.MIN_VALUE);
+        attrs.calendarPaddingEnd = (int) ta.getDimension(R.styleable.NCalendar_calendarPaddingEnd, Integer.MIN_VALUE);
         attrs.animationDuration = ta.getInt(R.styleable.NCalendar_animationDuration, context.getResources().getInteger(R.integer.N_animationDuration));
+        attrs.scrollViewToMonth = ta.getBoolean(R.styleable.NCalendar_scrollViewToMonth, true);
+        attrs.scrollViewToWeek = ta.getBoolean(R.styleable.NCalendar_scrollViewToWeek, true);
+        attrs.scrollViewToWeekWithTop = ta.getBoolean(R.styleable.NCalendar_scrollViewToWeekWithTop, true);
 
         attrs.stretchCalendarEnable =ta.getBoolean(R.styleable.NCalendar_stretchCalendarEnable, context.getResources().getBoolean(R.bool.N_stretchCalendarEnable));
         attrs.stretchCalendarHeight = (int) ta.getDimension(R.styleable.NCalendar_stretchCalendarHeight, context.getResources().getDimension(R.dimen.N_stretchCalendarHeight));

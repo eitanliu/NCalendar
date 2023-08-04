@@ -1,8 +1,5 @@
 package com.necer.utils;
 
-import android.content.Context;
-import android.util.TypedValue;
-
 import com.necer.entity.CalendarDate;
 import com.necer.entity.Lunar;
 
@@ -70,18 +67,13 @@ public class CalendarUtil {
      *
      * @param date1
      * @param date2
-     * @param type  一周
+     * @param weekType 一周
      * @return
      */
-    public static int getIntervalWeek(LocalDate date1, LocalDate date2, int type) {
+    public static int getIntervalWeek(LocalDate date1, LocalDate date2, int weekType) {
 
-        if (type == Attrs.MONDAY) {
-            date1 = getMonFirstDayOfWeek(date1);
-            date2 = getMonFirstDayOfWeek(date2);
-        } else {
-            date1 = getSunFirstDayOfWeek(date1);
-            date2 = getSunFirstDayOfWeek(date2);
-        }
+        date1 = getFirstDayOfWeek(date1, weekType);
+        date2 = getFirstDayOfWeek(date2, weekType);
 
         return Weeks.weeksBetween(date1, date2).getWeeks();
 
@@ -96,6 +88,17 @@ public class CalendarUtil {
      */
     public static boolean isToday(LocalDate date) {
         return new LocalDate().equals(date);
+    }
+
+    /**
+     * 是否是今天
+     *
+     * @param date
+     * @param offset
+     * @return
+     */
+    public static boolean isToday(LocalDate date, Long offset) {
+        return new LocalDate(System.currentTimeMillis() - offset).equals(date);
     }
 
     /**
@@ -116,45 +119,68 @@ public class CalendarUtil {
         List<LocalDate> dateList = new ArrayList<>();
 
 
-        //周一开始的
-        if (weekType == Attrs.MONDAY) {
-
-            //周一开始的
-            for (int i = 0; i < firstDayOfWeek - 1; i++) {
-                LocalDate date = new LocalDate(lastMonthDate.getYear(), lastMonthDate.getMonthOfYear(), lastMonthDays - (firstDayOfWeek - i - 2));
-                dateList.add(date);
-            }
-            for (int i = 0; i < days; i++) {
-                LocalDate date = new LocalDate(localDate.getYear(), localDate.getMonthOfYear(), i + 1);
-                dateList.add(date);
-            }
-            for (int i = 0; i < 7 - endDayOfWeek; i++) {
-                LocalDate date = new LocalDate(nextMonthDate.getYear(), nextMonthDate.getMonthOfYear(), i + 1);
-                dateList.add(date);
-            }
-
-        } else {
-            //上个月
-            if (firstDayOfWeek != 7) {
-                for (int i = 0; i < firstDayOfWeek; i++) {
-                    LocalDate date = new LocalDate(lastMonthDate.getYear(), lastMonthDate.getMonthOfYear(), lastMonthDays - (firstDayOfWeek - i - 1));
-                    dateList.add(date);
-                }
-            }
-            //当月
-            for (int i = 0; i < days; i++) {
-                LocalDate date = new LocalDate(localDate.getYear(), localDate.getMonthOfYear(), i + 1);
-                dateList.add(date);
-            }
-            //下个月
-            if (endDayOfWeek == 7) {
-                endDayOfWeek = 0;
-            }
-            for (int i = 0; i < 6 - endDayOfWeek; i++) {
-                LocalDate date = new LocalDate(nextMonthDate.getYear(), nextMonthDate.getMonthOfYear(), i + 1);
-                dateList.add(date);
-            }
+        // 上个月
+        int lastDiffer = firstDayOfWeek - weekType;
+        int lastDays = lastDiffer < 0 ? 7 + lastDiffer : lastDiffer;
+        for (int i = lastDays; i > 0; i--) {
+            LocalDate date = new LocalDate(lastMonthDate.getYear(), lastMonthDate.getMonthOfYear(), lastMonthDays - i + 1);
+            dateList.add(date);
         }
+        //当月
+        for (int i = 0; i < days; i++) {
+            LocalDate date = new LocalDate(localDate.getYear(), localDate.getMonthOfYear(), i + 1);
+            dateList.add(date);
+        }
+        //下个月
+        int endDay = weekType - 1;
+        if (endDay == 0) endDay = 7;
+        int nextDiffer = endDay - endDayOfWeek;
+        int nextDays = nextDiffer < 0 ? 7 + nextDiffer : nextDiffer;
+        for (int i = 0; i < nextDays; i++) {
+            LocalDate date = new LocalDate(nextMonthDate.getYear(), nextMonthDate.getMonthOfYear(), i + 1);
+            dateList.add(date);
+        }
+
+
+//        //周一开始的
+//        if (weekType == Attrs.MONDAY) {
+//
+//            //周一开始的
+//            for (int i = 0; i < firstDayOfWeek - 1; i++) {
+//                LocalDate date = new LocalDate(lastMonthDate.getYear(), lastMonthDate.getMonthOfYear(), lastMonthDays - (firstDayOfWeek - i - 2));
+//                dateList.add(date);
+//            }
+//            for (int i = 0; i < days; i++) {
+//                LocalDate date = new LocalDate(localDate.getYear(), localDate.getMonthOfYear(), i + 1);
+//                dateList.add(date);
+//            }
+//            for (int i = 0; i < 7 - endDayOfWeek; i++) {
+//                LocalDate date = new LocalDate(nextMonthDate.getYear(), nextMonthDate.getMonthOfYear(), i + 1);
+//                dateList.add(date);
+//            }
+//
+//        } else {
+//            //上个月
+//            if (firstDayOfWeek != 7) {
+//                for (int i = 0; i < firstDayOfWeek; i++) {
+//                    LocalDate date = new LocalDate(lastMonthDate.getYear(), lastMonthDate.getMonthOfYear(), lastMonthDays - (firstDayOfWeek - i - 1));
+//                    dateList.add(date);
+//                }
+//            }
+//            //当月
+//            for (int i = 0; i < days; i++) {
+//                LocalDate date = new LocalDate(localDate.getYear(), localDate.getMonthOfYear(), i + 1);
+//                dateList.add(date);
+//            }
+//            //下个月
+//            if (endDayOfWeek == 7) {
+//                endDayOfWeek = 0;
+//            }
+//            for (int i = 0; i < 6 - endDayOfWeek; i++) {
+//                LocalDate date = new LocalDate(nextMonthDate.getYear(), nextMonthDate.getMonthOfYear(), i + 1);
+//                dateList.add(date);
+//            }
+//        }
 
         //某些年的2月份28天，又正好日历只占4行
         if (dateList.size() == 28) {
@@ -200,7 +226,8 @@ public class CalendarUtil {
         if (type == Attrs.MONDAY) {
             localDate = getMonFirstDayOfWeek(localDate);
         } else {
-            localDate = getSunFirstDayOfWeek(localDate);
+            int firstDay = type;
+            localDate = getFirstDayOfWeek(localDate, firstDay);
         }
 
         for (int i = 0; i < 7; i++) {
@@ -226,12 +253,14 @@ public class CalendarUtil {
      * @param date
      * @return
      */
-    public static LocalDate getSunFirstDayOfWeek(LocalDate date) {
-        if (date.dayOfWeek().get() == 7) {
+    public static LocalDate getFirstDayOfWeek(LocalDate date, int firstDay) {
+        int firstDayOfWeek = date.dayOfWeek().get();
+        if (firstDayOfWeek == firstDay) {
             return date;
-        } else {
-            return date.minusWeeks(1).withDayOfWeek(7);
-        }
+        } else if (firstDayOfWeek > firstDay)
+            return date.withDayOfWeek(firstDay);
+        else
+            return date.minusWeeks(1).withDayOfWeek(firstDay);
     }
 
     /**

@@ -29,5 +29,10 @@ public class TestAdapterActivity extends AppCompatActivity {
         startActivity(new Intent(this, DingAdapterActivity.class));
     }
 
+    public void my_test(View view) {
+
+        startActivity(new Intent(this, MyTestActivity.class));
+    }
+
 
 }

@@ -92,7 +92,7 @@ public class CalendarView2 extends GridView implements ICalendarView {
             LocalDate localDate = mDateList.get(position);
             if (mCalendarHelper.isAvailableDate(localDate)) {
                 if (mCalendarHelper.isCurrentMonthOrWeek(localDate)) {  //当月日期
-                    if (CalendarUtil.isToday(localDate)) {  //当天
+                    if (CalendarUtil.isToday(localDate, mCalendarHelper.getTimeOffset())) {  //当天
                         mCalendarAdapter.onBindToadyView(itemView, localDate, mCalendarHelper.getAllSelectListDate());
                     } else { //不是当天的当月其他日期
                         mCalendarAdapter.onBindCurrentMonthOrWeekView(itemView, localDate, mCalendarHelper.getAllSelectListDate());

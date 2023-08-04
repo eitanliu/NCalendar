@@ -102,6 +102,13 @@ public interface ICalendar {
     void notifyCalendar();
 
     /**
+     * 设置周开始日
+     *
+     * @param dayOfWeek 1-7
+     */
+    void setFirstDayOfWeek(int dayOfWeek);
+
+    /**
      * 设置初始化日期
      *
      * @param formatInitializeDate 必须为 yyyy-MM-dd 的字符串

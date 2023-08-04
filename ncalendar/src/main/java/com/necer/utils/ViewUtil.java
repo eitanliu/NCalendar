@@ -12,6 +12,11 @@ import com.necer.R;
 public class ViewUtil {
 
     public static View getTargetView(Context context, View view) {
+        if (view == null) return null;
+        View child = view.findViewWithTag(context.getString(R.string.N_factual_child_view));
+        if (child != null) {
+            view = child;
+        }
         View targetView = view.findViewWithTag(context.getString(R.string.N_factual_scroll_view));
 
         if (targetView != null && isViewVisible(targetView)) {
@@ -19,7 +24,7 @@ public class ViewUtil {
         } else {
             try {
                 traverseView(view);
-            } catch (ViewUtil.ViewException e) {
+            } catch (ViewException e) {
                 e.printStackTrace();
                 return e.getExceptionView();
             }

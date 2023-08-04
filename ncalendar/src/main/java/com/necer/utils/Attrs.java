@@ -30,17 +30,22 @@ public class Attrs {
      * 在公历日期下面
      */
     public static final int DOWN = 201;
+    /**
+     * 周的第一天
+     * 周一
+     */
+    public static final int MONDAY = 1;
+    /**
+     * 周的第一天
+     * 周六
+     */
+    public static final int SATURDAY = 6;
 
     /**
      * 周的第一天
      * 周日
      */
-    public static final int SUNDAY = 300;
-    /**
-     * 周的第一天
-     * 周一
-     */
-    public static final int MONDAY = 301;
+    public static final int SUNDAY = 7;
 
 
     /**
@@ -314,11 +319,29 @@ public class Attrs {
      * 折叠日历月日历的高度
      */
     public int calendarHeight;
+    public int calendarPaddingLeft;
+    public int calendarPaddingTop;
+    public int calendarPaddingRight;
+    public int calendarPaddingBottom;
+    public int calendarPaddingStart;
+    public int calendarPaddingEnd;
     /**
      * 折叠日历属性
      * 是否可拉伸
      */
     public boolean stretchCalendarEnable;
+    /**
+     * 拦截滚动View事件，先执行（周 -> 月）动画
+     */
+    public boolean scrollViewToMonth;
+    /**
+     * 拦截滚动View事件，先执行（月 -> 周）动画
+     */
+    public boolean scrollViewToWeek;
+    /**
+     * 执行（月 -> 周）动画 滚动View内容必须在顶部
+     */
+    public boolean scrollViewToWeekWithTop;
     /**
      * 折叠日历属性
      * 拉伸后日历的高度
@@ -394,5 +417,9 @@ public class Attrs {
      */
     public Drawable calendarBackground;
 
+    /**
+     * 日历背景色
+     */
+    public int calendarBackgroundColor;
 
 }

@@ -100,9 +100,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:background="#999999"
-            android:tag="@string/N_factual_scroll_view" />
+            android:tag="@string/N_factual_scroll_view"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </com.necer.calendar.Miui9Calendar>

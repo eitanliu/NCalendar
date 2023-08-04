@@ -38,6 +38,7 @@ public abstract class BasePagerAdapter extends PagerAdapter {
         this.mInitializeDate = baseCalendar.getInitializeDate();
         this.mPageSize = baseCalendar.getCalendarPagerSize();
         this.mPageCurrIndex = baseCalendar.getCalendarCurrIndex();
+        mCalendar.onPageInit(getCalendarType());
     }
 
     @Override
@@ -53,6 +54,10 @@ public abstract class BasePagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, @NonNull Object object) {
+        if (object instanceof ICalendarView ) {
+            ICalendarView iCalendarView = (ICalendarView) object;
+            mCalendar.onPageDestroyItem(getCalendarType(), iCalendarView.getCurrPagerFirstDate());
+        }
         container.removeView((View) object);
     }
 
@@ -67,6 +72,7 @@ public abstract class BasePagerAdapter extends PagerAdapter {
         } else {
             iCalendarView = new CalendarView2(mContext, mCalendar, pageInitializeDate, getCalendarType());
         }
+        mCalendar.onPageInstantiateItem(getCalendarType(), iCalendarView.getCurrPagerFirstDate());
         ((View) iCalendarView).setTag(position);
         container.addView((View) iCalendarView);
         return iCalendarView;

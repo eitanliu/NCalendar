@@ -45,6 +45,7 @@ public class TestMiui9Activity extends BaseActivity {
         miui9Calendar.setCalendarState(CalendarState.WEEK);
         miui9Calendar.setCheckMode(checkModel);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this);

@@ -76,6 +76,14 @@ public class CalendarHelper {
         mGestureDetector = new GestureDetector(calendar.getContext(), mSimpleOnGestureListener);
     }
 
+    public BaseCalendar getCalendar() {
+        return mCalendar;
+    }
+
+    public Long getTimeOffset() {
+        return mCalendar.getTimeOffset();
+    }
+
     /**
      * 分配空间
      *
@@ -116,7 +124,9 @@ public class CalendarHelper {
 
     private RectF resetRectFSize(RectF rectF, int lineIndex, int columnIndex) {
         //矩形重新确定确定位置
-        float width = mCalendar.getMeasuredWidth();
+        float paddingLeft = mCalendar.getPaddingLeft();
+        float paddingRight = mCalendar.getPaddingRight();
+        float width = mCalendar.getMeasuredWidth() - paddingLeft - paddingRight;
         float height = mCalendar.getMeasuredHeight();
         //为每个矩形确定位置
         if (mLineNum == 5 || mLineNum == 1) {

@@ -29,6 +29,11 @@ public enum DateChangeBehavior implements Serializable {
     CLICK_PAGE,
 
     /**
+     * 月/周切换同步
+     */
+    SYNC,
+
+    /**
      * API跳转
      */
     API

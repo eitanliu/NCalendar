@@ -77,7 +77,7 @@ public class CalendarView extends View implements ICalendarView {
                 LocalDate localDate = mDateList.get(index);
                 if (mCalendarHelper.isAvailableDate(localDate)) { //可用的日期
                     if (mCalendarHelper.isCurrentMonthOrWeek(localDate)) {  //当月日期
-                        if (CalendarUtil.isToday(localDate)) {  //当天
+                        if (CalendarUtil.isToday(localDate, mCalendarHelper.getTimeOffset())) {  //当天
                             calendarPainter.onDrawToday(canvas, rectF, localDate, mCalendarHelper.getAllSelectListDate());
                         } else { //非当天的当月日期
                             calendarPainter.onDrawCurrentMonthOrWeek(canvas, rectF, localDate, mCalendarHelper.getAllSelectListDate());
