@@ -20,11 +20,11 @@
 ## 效果图
 |miui9|miui10|emui|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/miui9_gif.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/miui10_gif.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/emui_gif.gif)|
+|![](docs/assets/miui9_gif.gif)|![](docs/assets/miui10_gif.gif)|![](docs/assets/emui_gif.gif)|
 
 |周固定，下拉刷新|日历和子view添加其他view|自定义日历界面|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/week_hold.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/add_view1.png)|![](https://github.com/yannecer/NCalendar/blob/master/app/custom1.png)|
+|![](docs/assets/week_hold.gif)|![](docs/assets/add_view1.png)|![](docs/assets/custom1.png)|
 ## 下载demo：
 [下载demo](https://github.com/yannecer/NCalendar/releases/download/3.4.4/3.4.4.apk)
 

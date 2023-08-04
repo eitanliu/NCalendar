@@ -22,25 +22,25 @@
 ## 效果图 
 |Miui9Calendar|Miui10Calendar|EmuiCalendar|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/miui9_gif.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/miui10_gif.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/emui_gif.gif)|
+|![](docs/assets/miui9_gif.gif)|![](docs/assets/miui10_gif.gif)|![](docs/assets/emui_gif.gif)|
 
 |周固定，下拉刷新|日历和子view添加其他view|自定义日历界面（LigaturePainter）|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/week_hold.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/addview.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/LigaturePainter.png)|
+|![](docs/assets/week_hold.gif)|![](docs/assets/addview.gif)|![](docs/assets/LigaturePainter.png)|
 
 |默认不选中|默认多选|自定义日历界面（TicketPainter）|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/111.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/222.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/TicketPainter.png)|
+|![](docs/assets/111.gif)|![](docs/assets/222.gif)|![](docs/assets/TicketPainter.png)|
 
 
 |ViewPager|普通View|demo功能预览|
 |:---:|:---:|:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/viewpager.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/general.gif)|![](https://github.com/yannecer/NCalendar/blob/master/app/demo.png)|
+|![](docs/assets/viewpager.gif)|![](docs/assets/general.gif)|![](docs/assets/demo.png)|
 
 
 |日历拉伸|
 |:---:|
-|![](https://github.com/yannecer/NCalendar/blob/master/app/Stretch.gif)|
+|![](docs/assets/Stretch.gif)|
 
 # 下载demo：
 [下载demo](https://github.com/yannecer/NCalendar/releases/download/4.3.0/4.3.0.apk)
